@@ -52,3 +52,21 @@ class Direccion(models.Model):
 
     def __str__(self):
         return f"{self.calle} {self.numero}, {self.comuna}, {self.ciudad}, {self.region}"
+    
+class CursoProfesores(models.Model):
+    curso = models.ForeignKey(Curso, models.DO_NOTHING)
+    profesor = models.ForeignKey(Profesor, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'curso_profesores'
+        unique_together = (('curso', 'profesor'),)
+
+
+class EstudianteCursos(models.Model):
+    estudiante = models.ForeignKey(Estudiante, models.DO_NOTHING)
+    curso = models.ForeignKey(Curso, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'estudiante_cursos'
